@@ -22,16 +22,17 @@ interface CartItemsAmount {
 }
 
 const Home = (): JSX.Element => {
-  // const [products, setProducts] = useState<ProductFormatted[]>([]);
-  // const { addProduct, cart } = useCart();
+  const [products, setProducts] = useState<ProductFormatted[]>([]);
+  const { addProduct, cart } = useCart();
 
   // const cartItemsAmount = cart.reduce((sumAmount, product) => {
-  //   // TODO
+  // TODO 
   // }, {} as CartItemsAmount)
 
   useEffect(() => {
     async function loadProducts() {
-      // TODO
+      const storagedCart = localStorage.getItem('@RocketShoes:cart');
+      return storagedCart;
     }
 
     loadProducts();
@@ -60,6 +61,25 @@ const Home = (): JSX.Element => {
           <span>ADICIONAR AO CARRINHO</span>
         </button>
       </li>
+      {products.map(product => (
+        <li key={product.id}>
+        <img src={product.image} alt={product.title} />
+        <strong>{product.title}</strong>
+        <span>{product.price}</span>
+        <button
+          type="button"
+          data-testid="add-product-button"
+        // onClick={() => handleAddProduct(product.id)}
+        >
+          <div data-testid="cart-product-quantity">
+            <MdAddShoppingCart size={16} color="#FFF" />
+            {/* {cartItemsAmount[product.id] || 0} */} 2
+          </div>
+
+          <span>ADICIONAR AO CARRINHO</span>
+        </button>
+      </li>
+      ))}
     </ProductList>
   );
 };
